@@ -11,4 +11,15 @@ drb: drb.sh drb.awk drb.tsv
 test: drb.sh
 	shellcheck -s sh drb.sh
 
-.PHONY: test
+clean:
+	rm -f drb
+
+install: drb
+	mkdir -p $(DESTDIR)$(PREFIX)/bin
+	cp -f drb $(DESTDIR)$(PREFIX)/bin
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/drb
+
+uninstall:
+	rm -f $(DESTDIR)$(PREFIX)/bin/drb
+
+.PHONY: test clean install uninstall
